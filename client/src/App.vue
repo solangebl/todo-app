@@ -11,14 +11,18 @@ export default {
 </script>
 
 <style>
+:root {
+  --tron-color: #18cae6;
+}
+
 body {
-  background: #000 url('assets/space.png') repeat;
-  color: #18cae6;
-  font-family: Lato, sans-serif;
+  background: #000 url('./assets/space.png') repeat;
+  color: var(--tron-color);
+  font-family: "Bitstream Vera Sans Mono", monospace;
 }
 
 #app {
-  font-family: 'Inconsolata', monospace;
+  font-family: "Bitstream Vera Sans Mono", monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
