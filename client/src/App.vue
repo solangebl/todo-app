@@ -18,11 +18,11 @@ export default {
 body {
   background: #000 url('./assets/space.png') repeat;
   color: var(--tron-color);
-  font-family: "Bitstream Vera Sans Mono", monospace;
+  font-family: "Noto Mono", monospace;
 }
 
 #app {
-  font-family: "Bitstream Vera Sans Mono", monospace;
+  font-family: "Noto Mono", monospace;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

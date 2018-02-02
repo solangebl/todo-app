@@ -7,10 +7,11 @@
             <input name="description" v-model="newTodo" v-on:keyup.enter="addTodo"><br>
             <button v-on:click="addTodo">Agregar</button>
           </div>
-          <div v-for="todo in todos" :key="todo.id">
+          <div class="todo-list-body" v-for="todo in todos" :key="todo.id">
             <div class="">
               <p>
                 >> {{ todo.description }}
+                <button v-on:click="removeTodo(todo._id)">X</button>
               </p>
             </div>
           </div>
@@ -43,8 +44,11 @@ export default {
       this.todos.push(response.data)
       this.newTodo = ''
     },
-    async removeTodo () {
-
+    async removeTodo (id) {
+      const response = await TodosService.removeTodo({id: id})
+      if (response.success) {
+        this.$router.push({ name: 'Todos' })
+      }
     }
   }
 }
@@ -79,5 +83,15 @@ export default {
   box-shadow: 0 0 9px var(--tron-color);
   cursor: pointer;
   color: #fff;
+}
+
+.todo-list-body p {
+  padding: 0 10px 0 10px;
+  text-align: left;
+}
+
+.todo-list-body p button {
+  float: right;
+
 }
 </style>

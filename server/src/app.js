@@ -1,10 +1,21 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const morgan = require('morgan')
-const config = require('./config')
-const mongoose = require('mongoose')
-
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const morgan = require('morgan');
+const config = require('./config');
+const mongoose = require('mongoose');
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
+/*
+const authCheck = jwt({
+  secret: jwks.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: config.jwks.uri
+  })
+})
+*/
 const app = express()
 app.use(morgan('combined'))
 app.use(bodyParser.json())
@@ -47,4 +58,13 @@ app.post('/todos/add', (req, res) => {
     })
 })
 
+app.post('/todos/remove', (req, res) => {
+  Todo.remove({_id: req.body.id}).exec()
+    .then( () => {
+      res.send({success: true})
+    })
+    .catch( (err) => {
+      console.log(err)
+    })
+})
 app.listen(process.env.PORT || 8081);
