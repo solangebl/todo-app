@@ -4,15 +4,13 @@
       <div class="todo-list">
           <div class="todo-list-header">
             <h2>Crear tarea</h2>
-            <input type="text" name="title">
-            <input type="text" name="description"><br>
+            <input name="description" v-model="newTodo" v-on:keyup.enter="addTodo"><br>
             <button v-on:click="addTodo">Agregar</button>
           </div>
           <div v-for="todo in todos" :key="todo.id">
-            <div class="card">
+            <div class="">
               <p>
-                <span><b>$ {{ todo.title }}</b></span><br />
-                <span> >> {{ todo.description }}</span>
+                >> {{ todo.description }}
               </p>
             </div>
           </div>
@@ -28,7 +26,8 @@ export default {
   name: 'list',
   data () {
     return {
-      todos: []
+      todos: [],
+      newTodo: ''
     }
   },
   mounted () {
@@ -36,12 +35,16 @@ export default {
   },
   methods: {
     async getTodos () {
-      const response = await TodosService.fetchItems()
+      const response = await TodosService.fetchTodos()
       this.todos = response.data.items
     },
     async addTodo () {
-      //const response = await TodosService.addTodo()
-      console.log()
+      const response = await TodosService.addTodo({description: this.newTodo})
+      this.todos.push(response.data)
+      this.newTodo = ''
+    },
+    async removeTodo () {
+
     }
   }
 }
@@ -60,18 +63,19 @@ export default {
   padding-bottom: 10px;
 }
 
-.todo-list-header input{
+.todo-list-header input, .todo-list-header textarea{
   background: transparent;
   border: 1px solid Gray;
   margin: 2px 0 2px 0;
   border-radius: 5px;
   color: #fff;
+  font-size: 20px;
 }
 
-.todo-list-header button{
+.todo-list button{
   background-color: var(--tron-color);
   border: solid 1px var(--tron-color);
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0 0 9px var(--tron-color);
   cursor: pointer;
   color: #fff;

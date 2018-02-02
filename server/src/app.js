@@ -2,24 +2,49 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
+const config = require('./config')
+const mongoose = require('mongoose')
 
 const app = express()
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/items', (req, res) => {
-  res.send(
-    {
-      items: [
-      	{
-      		title: "TO DO",
-      		description: "description",
-      		author: "sol"
-      	}
-      ],
-    }
-  )
+const Todo = require('../models/todo')
+
+mongoose.connect(config.mongo.db)
+  .catch(function(err){
+    console.log(err)
+  });
+// Get Mongoose to use the global promise library
+mongoose.Promise = global.Promise
+// Get the default connection
+var db = mongoose.connection
+
+app.get('/todos', (req, res) => {
+  Todo.find().exec()
+    .then( (todos) => {
+      res.send(
+        {
+          items: todos
+        }
+      )
+  })
+    .catch( (err) => {
+      console.log(err)
+    })
+})
+
+app.post('/todos/add', (req, res) => {
+  var description = req.body.description
+  var newTodo = new Todo({description: description})
+  newTodo.save()
+    .then( (todo) => {
+      res.send(todo)
+    })
+    .catch( (err) => {
+      console.log(err)
+    })
 })
 
 app.listen(process.env.PORT || 8081);

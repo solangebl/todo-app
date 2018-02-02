@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+var config = require('../src/config');
+var mongoose = require('mongoose');
+
+var Todo = require('../models/todo');
+
+mongoose.Promise = global.Promise;
+mongoose.connect(config.mongo.db, function(err) {
+    if (err) {
+        console.error('Could not connect to MongoDB!');
+        console.log(err);
+        process.exit()
+    }
+});
+
+var db = mongoose.connection;
+
+
+Promise.all([
+    Todo.remove({}),
+    db.dropDatabase(),
+
+  ])
+  .then(function(results){
+    process.exit(0);
+  }).catch(function(err){
+    console.log('error: ', err);
+});

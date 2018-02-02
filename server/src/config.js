@@ -1,0 +1,15 @@
+var env = require('node-env-file');
+
+env('.env');
+
+var config = {};
+
+config.web = {};
+config.mongo = {};
+config.paths = {};
+
+config.mongo.db = process.env.MONGO_URL;
+config.web.port = process.env.APP_PORT;
+config.web.base_url = process.env.APP_BASE_URL;
+
+module.exports = config;
