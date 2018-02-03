@@ -45,10 +45,8 @@ export default {
       this.newTodo = ''
     },
     async removeTodo (id) {
-      const response = await TodosService.removeTodo({id: id})
-      if (response.success) {
-        this.$router.push({ name: 'Todos' })
-      }
+      await TodosService.removeTodo({id: id})
+      this.getTodos()
     }
   }
 }
