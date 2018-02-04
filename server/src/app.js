@@ -6,16 +6,7 @@ const config = require('./config');
 const mongoose = require('mongoose');
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
-/*
-const authCheck = jwt({
-  secret: jwks.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: config.jwks.uri
-  })
-})
-*/
+
 const app = express()
 app.use(morgan('combined'))
 app.use(bodyParser.json())
