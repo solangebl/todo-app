@@ -13,6 +13,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 const Todo = require('../models/todo')
+const List = require('../models/list.js')
 
 mongoose.connect(config.mongo.db)
   .catch(function(err){
@@ -59,3 +60,29 @@ app.post('/todos/remove', (req, res) => {
     })
 })
 app.listen(process.env.PORT || 8081);
+
+app.post('/lists', (req, res) => {
+  List.find().exec()
+  .then( (todos) => {
+    res.send(
+      {
+        lists: lists
+      }
+    )
+})
+  .catch( (err) => {
+    console.log(err)
+  })
+})
+
+app.post('/lists/add', (req, res) => {
+  var name = req.body.name
+  var newList = new List({name: name})
+  newList.save()
+    .then( (list) => {
+      res.send(list)
+    })
+    .catch( (err) => {
+      console.log(err)
+    })
+})
