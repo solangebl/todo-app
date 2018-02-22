@@ -11,17 +11,11 @@
 
           <div class="modal-body">
             <slot name="body">
-              <form>
-                <input type="text" name="name" />
-
-              </form>
             </slot>
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
-              <button class="modal-default-button" v-on:click="addList">OK</button>
-              <button class="modal-cancel-button" @click="$emit('close')">Cancelar</button>
             </slot>
           </div>
         </div>
@@ -31,22 +25,8 @@
 </template>
 
 <script>
-import TodosService from '@/services/TodosService'
-
 export default {
-  name: 'addList',
-  data () {
-    return {
-      newLlist: ''
-    }
-  },
-  methods: {
-    async addList () {
-      console.log('agregar')
-      await TodosService.addList({name: this.newList})
-      this.newList = ''
-    }
-  }
+  name: 'Modal'
 }
 </script>
 

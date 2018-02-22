@@ -1,8 +1,15 @@
 <template>
     <div class="list-container">
         <button id="show-modal" @click="showModal = true">Nueva Lista</button>
-        <modal-component v-if="showModal" @close="showModal = false">
+        <modal-component :newList="this.newList" v-if="showModal" @close="showModal = false">
           <h3 slot="header">Crear Lista</h3>
+          <form slot="body">
+            <input v-model="newList" type="text" name="name" />
+          </form>
+          <div slot="footer">
+            <button class="modal-default-button" v-on:click="$emit('add')">OK</button>
+            <button class="modal-cancel-button" @click="$emit('close')">Cancelar</button>
+          </div>
         </modal-component>
         <list-component v-for="list in lists" :key="list.id" :todos2="list.items"></list-component>
     </div>
@@ -12,7 +19,7 @@
 
 import TodosService from '@/services/TodosService'
 
-import ModalAdd from './ModalAdd.vue'
+import Modal from './Modal.vue'
 import List from './List2.vue'
 
 export default {
@@ -20,13 +27,13 @@ export default {
   data () {
     return {
       lists: [],
-      newTodo: '',
+      newLlist: {name: 'pepe'},
       showModal: false
     }
   },
   components: {
     'list-component': List,
-    'modal-component': ModalAdd
+    'modal-component': Modal
   },
   mounted () {
     this.getLists()
@@ -35,6 +42,11 @@ export default {
     async getLists () {
       const response = await TodosService.fetchLists()
       this.lists = response.data.lists
+    },
+    async addList () {
+      console.log('agregar')
+      await TodosService.addList({name: this.newList})
+      this.newList = ''
     }
   }
 }
