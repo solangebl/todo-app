@@ -1,6 +1,6 @@
 # client
 
-> A vue.js movies project
+> A vue.js todo-list project
 
 ## Build Setup
 
