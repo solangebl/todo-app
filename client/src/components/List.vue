@@ -1,56 +1,55 @@
-<template>
-    <div class="list-container">
-      <h1>TO-DO LIST</h1>
-      <div class="todo-list">
-          <div class="todo-list-header">
-            <h2>Crear tarea</h2>
-            <input name="description" v-model="newTodo" v-on:keyup.enter="addTodo"><br>
-            <button v-on:click="addTodo">Agregar</button>
-          </div>
-          <div class="todo-list-body" v-for="todo in todos" :key="todo.id">
-            <div class="">
-              <p>
-                >> {{ todo.description }}
-                <button v-on:click="removeTodo(todo._id)">X</button>
-              </p>
-            </div>
-          </div>
+<template id="list">
+  <div class="todo-list">
+      <div class="todo-list-header">
+        <h1>{{ list.title }}</h1>
+        <h2>Crear tarea</h2>
+        <input name="description" v-model="newTodo" v-on:keyup.enter="addTodo()"><br>
+        <button v-on:click="addTodo">Agregar</button>
       </div>
-    </div>
+      <div class="todo-list-body" >
+        <div class="" style="margin-bottom:10px;" v-for="todo in list.todos" :key="todo.id">
+          <p>
+            >> {{ todo.description }}
+            <button v-on:click="removeTodo(todo._id)">X</button>
+          </p>
+        </div>
+      </div>
+  </div>
 </template>
 
 <script>
 
-// import AuthService from '@/services/AuthService'
 import TodosService from '@/services/TodosService'
 
 export default {
   name: 'list',
   data () {
     return {
-      todos: [],
+      list: '',
       newTodo: ''
     }
   },
+  props: ['listId'],
   mounted () {
-    this.getTodos()
+    this.fetchList(this.listId)
   },
   methods: {
-    async getTodos () {
-      const response = await TodosService.fetchTodos()
-      this.todos = response.data.items
+    async fetchList (id) {
+      const response = await TodosService.fetchList(id)
+      this.list = response.data.list
     },
     async addTodo () {
-      const response = await TodosService.addTodo({description: this.newTodo})
-      this.todos.push(response.data)
+      const response = await TodosService.addTodo(this.list._id, {description: this.newTodo})
+      this.list = response.data
       this.newTodo = ''
     },
     async removeTodo (id) {
-      await TodosService.removeTodo({id: id})
-      this.getTodos()
+      const response = await TodosService.removeTodo({list: this.list._id, id: id})
+      this.list = response.data
     }
   }
 }
+
 </script>
 
 <style>
@@ -84,13 +83,13 @@ export default {
   color: #fff;
 }
 
-.todo-list-body p {
+.todo-list-body div p {
   padding: 0 10px 0 10px;
   text-align: left;
 }
 
-.todo-list-body p button {
+.todo-list-body div p button {
   float: right;
-
+  margin: 0 10px 0 10px;
 }
 </style>

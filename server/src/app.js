@@ -13,7 +13,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 const Todo = require('../models/todo')
-const List = require('../models/list.js')
+const List = require('../models/list')
 
 mongoose.connect(config.mongo.db)
   .catch(function(err){
@@ -39,11 +39,16 @@ app.get('/todos', (req, res) => {
 })
 
 app.post('/todos/add', (req, res) => {
-  var description = req.body.description
-  var newTodo = new Todo({description: description})
-  newTodo.save()
-    .then( (todo) => {
-      res.send(todo)
+  var todo = req.body.params
+  var query = List.findOne({_id: req.body.list})
+  query.exec()
+    .then( (list) => {
+      list.todos.push(todo)
+      return list.save()
+    })
+    .then( (list) => {
+      console.log(list)
+      res.send(list)
     })
     .catch( (err) => {
       console.log(err)
@@ -51,19 +56,24 @@ app.post('/todos/add', (req, res) => {
 })
 
 app.post('/todos/remove', (req, res) => {
-  Todo.remove({_id: req.body.id}).exec()
-    .then( () => {
-      res.send({success: true})
-    })
-    .catch( (err) => {
-      console.log(err)
-    })
+  console.log(req.body)
+  var query = List.findOne({_id: req.body.list})
+  query.exec()
+  .then( (list) => {
+    list.todos.pull({_id: req.body.id})
+    return list.save()
+  })
+  .then( (list) => {
+    res.send(list)
+  })
+  .catch( (err) => {
+    console.log(err)
+  })
 })
-app.listen(process.env.PORT || 8081);
 
-app.post('/lists', (req, res) => {
+app.get('/lists', (req, res) => {
   List.find().exec()
-  .then( (todos) => {
+  .then( (lists) => {
     res.send(
       {
         lists: lists
@@ -75,9 +85,22 @@ app.post('/lists', (req, res) => {
   })
 })
 
+app.get('/list/:listId', (req, res) => {
+  let id = req.params.listId
+  List.findOne({_id: id}).exec()
+  .then( (list) => {
+    res.send(
+        {list: list}
+    )
+})
+  .catch( (err) => {
+    console.log(err)
+  })
+})
+
 app.post('/lists/add', (req, res) => {
   var name = req.body.name
-  var newList = new List({name: name})
+  var newList = new List({title: name})
   newList.save()
     .then( (list) => {
       res.send(list)
@@ -86,3 +109,5 @@ app.post('/lists/add', (req, res) => {
       console.log(err)
     })
 })
+
+app.listen(process.env.PORT || 8081);

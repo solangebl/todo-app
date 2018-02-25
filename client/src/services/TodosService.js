@@ -7,13 +7,16 @@ export default {
   fetchLists () {
     return Api().get('lists')
   },
-  addTodo (params) {
-    return Api().post('todos/add', params)
+  fetchList (id) {
+    return Api().get('list/' + id)
+  },
+  addTodo (listId, todo) {
+    return Api().post('todos/add', {list: listId, params: todo})
   },
   removeTodo (params) {
     return Api().post('todos/remove', params)
   },
   addList (params) {
-    return Api().get('lists/add', params)
+    return Api().post('lists/add', params)
   }
 }

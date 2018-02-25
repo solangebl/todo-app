@@ -13,6 +13,8 @@ export default {
 <style>
 :root {
   --tron-color: #18cae6;
+  --dark-blue: #01879A;
+  --tron-orange: #d85f00;
 }
 
 body {

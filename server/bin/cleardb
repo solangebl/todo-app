@@ -4,6 +4,7 @@ var config = require('../src/config');
 var mongoose = require('mongoose');
 
 var Todo = require('../models/todo');
+var List = require('../models/list');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongo.db, function(err) {
@@ -19,6 +20,7 @@ var db = mongoose.connection;
 
 Promise.all([
     Todo.remove({}),
+    List.remove({}),
     db.dropDatabase(),
 
   ])
