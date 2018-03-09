@@ -56,8 +56,7 @@ export default {
 .todo-list {
   border: 2px solid Gray;
   border-radius: 10px;
-  margin: auto;
-  width: 30%;
+  width: auto;
 }
 
 .todo-list-header {
@@ -72,6 +71,7 @@ export default {
   border-radius: 5px;
   color: #fff;
   font-size: 20px;
+  width: 80%;
 }
 
 .todo-list button{
