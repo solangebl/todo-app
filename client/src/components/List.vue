@@ -1,10 +1,8 @@
 <template id="list">
   <div class="todo-list">
       <div class="todo-list-header">
-        <h1>{{ list.title }}</h1>
-        <h2>Crear tarea</h2>
-        <input name="description" v-model="newTodo" v-on:keyup.enter="addTodo()"><br>
-        <button v-on:click="addTodo">Agregar</button>
+        <h2>{{ list.title }}</h2>
+        <input name="description" v-model="newTodo" v-on:keyup.enter="addTodo()"> <button v-on:click="addTodo">Agregar</button>
       </div>
       <div class="todo-list-body" >
         <div class="" style="margin-bottom:10px;" v-for="todo in list.todos" :key="todo.id">
