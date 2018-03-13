@@ -10,6 +10,11 @@ Multiple to-do lists manager created with Vue, Express and MongoDB
 3. Configure the new files with your api endpoint for development and production
 4. To run, `npm run dev`
 
+### Client build
+
+To deploy the client you can run `NODE_ENV=production npm run build` and point your server to the dist directory.
+If you are serving the app from a sub-directory you should modify the router (router/index.js) and the build configuration (config/index.js) accordingly.
+
 ## Server
 
 1. `npm install`
