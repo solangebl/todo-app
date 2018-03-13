@@ -1,14 +1,14 @@
 <template id="list">
   <div class="todo-list">
       <div class="todo-list-header">
-        <h2>{{ list.title }}</h2>
-        <input name="description" v-model="newTodo" v-on:keyup.enter="addTodo()"> <button v-on:click="addTodo">Agregar</button>
+        <h2 class="font-effect-neon">{{ list.title }}</h2>
+        <input name="description" v-model="newTodo" v-on:keyup.enter="addTodo()"> <button class="add-button" v-on:click="addTodo">Agregar</button>
       </div>
       <div class="todo-list-body" >
         <div class="" style="margin-bottom:10px;" v-for="todo in list.todos" :key="todo.id">
           <p>
             >> {{ todo.description }}
-            <button v-on:click="removeTodo(todo._id)">X</button>
+            <button class="remove-button" v-on:click="removeTodo(todo._id)">X</button>
           </p>
         </div>
       </div>
@@ -72,22 +72,18 @@ export default {
   width: 80%;
 }
 
-.todo-list button{
-  background-color: var(--tron-color);
-  border: solid 1px var(--tron-color);
-  border-radius: 5px;
-  box-shadow: 0 0 9px var(--tron-color);
-  cursor: pointer;
-  color: #fff;
-}
-
 .todo-list-body div p {
   padding: 0 10px 0 10px;
   text-align: left;
+  color: var(--tron-color);
 }
 
 .todo-list-body div p button {
+  background: transparent;
+  border: none;
   float: right;
   margin: 0 10px 0 10px;
+  color: var(--tron-orange);
+  text-shadow: 0 0 9px var(--tron-orange);
 }
 </style>

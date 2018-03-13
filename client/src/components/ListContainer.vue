@@ -1,6 +1,6 @@
 <template>
     <div class="list-container">
-        <button id="show-modal" @click="showModal = true">Nueva Lista</button>
+        <button id="show-modal" class="add-button" @click="showModal = true">Nueva Lista</button>
         <modal-add-component v-if="showModal" @close="closeModal"></modal-add-component>
         <div class="wrapper">
           <list-component v-for="list in lists" :key="list.id" :listId="list._id"></list-component>
@@ -46,7 +46,7 @@ export default {
 
 <style>
 
-button{
+button.add-button{
   background-color: var(--tron-color);
   border: solid 1px var(--tron-color);
   border-radius: 5px;

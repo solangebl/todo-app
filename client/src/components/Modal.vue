@@ -58,12 +58,11 @@ export default {
   border-radius: 5px;
   box-shadow: 0 2px 8px var(--tron-color);
   transition: all .3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-header h3 {
   margin-top: 0;
-  color: var(--dark-blue);
+  color: var(--tron-color);
 }
 
 .modal-body {
