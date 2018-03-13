@@ -2,7 +2,9 @@
     <div class="list-container">
         <button id="show-modal" @click="showModal = true">Nueva Lista</button>
         <modal-add-component v-if="showModal" @close="closeModal"></modal-add-component>
-        <list-component v-for="list in lists" :key="list.id" :listId="list._id"></list-component>
+        <div class="wrapper">
+          <list-component v-for="list in lists" :key="list.id" :listId="list._id"></list-component>
+        </div>
     </div>
 </template>
 
@@ -52,6 +54,14 @@ button{
   cursor: pointer;
   color: #fff;
   margin: 10px
+}
+
+.wrapper{
+  display: grid;
+  grid-area: auto;
+  grid-template-columns: repeat(auto-fit, 300px);
+  grid-auto-rows: minmax(200px, auto);
+  grid-gap: 10px;
 }
 
 </style>
