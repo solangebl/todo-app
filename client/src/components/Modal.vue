@@ -54,10 +54,10 @@ export default {
   width: 300px;
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: #fff;
+  background-color: rgba(0, 17, 35, 0.5);
   border-radius: 5px;
-  box-shadow: 0 2px 8px var(--tron-color);
   transition: all .3s ease;
+  box-shadow: 0 0 9px #fff;
 }
 
 .modal-header h3 {

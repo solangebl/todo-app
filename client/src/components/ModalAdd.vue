@@ -5,8 +5,8 @@
       <input v-model="newList" v-on:keyup.enter="addList()" type="text" name="name" />
     </form>
     <div slot="footer">
-      <button class="modal-default-button" v-on:click="addList()">OK</button>
-      <button class="modal-cancel-button" @click="$emit('close')">Cancelar</button>
+      <button class="add-button" v-on:click="addList()">OK</button>
+      <button class="cancel-button" @click="$emit('close')">Cancelar</button>
     </div>
   </modal-component>
 </template>

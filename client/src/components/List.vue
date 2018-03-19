@@ -63,12 +63,6 @@ export default {
 }
 
 .todo-list-header input, .todo-list-header textarea{
-  background: transparent;
-  border: 1px solid Gray;
-  margin: 2px 0 2px 0;
-  border-radius: 5px;
-  color: #fff;
-  font-size: 20px;
   width: 80%;
 }
 

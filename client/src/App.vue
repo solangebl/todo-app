@@ -35,4 +35,33 @@ body {
 .font-effect-neon{
   font-family:  'Lato Hairline', monospace;
 }
+
+input{
+  background: transparent;
+  border: 1px solid Gray;
+  margin: 2px 0 2px 0;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 20px;
+}
+
+button.add-button{
+  background-color: var(--tron-color);
+  border: solid 1px var(--tron-color);
+  border-radius: 5px;
+  box-shadow: 0 0 9px var(--tron-color);
+  cursor: pointer;
+  color: #fff;
+  margin: 10px
+}
+
+button.cancel-button{
+  background-color: var(--tron-orange);
+  border: solid 1px var(--tron-orange);
+  border-radius: 5px;
+  box-shadow: 0 0 9px var(--tron-orange);
+  cursor: pointer;
+  color: #fff;
+  margin: 10px
+}
 </style>

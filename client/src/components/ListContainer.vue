@@ -46,16 +46,6 @@ export default {
 
 <style>
 
-button.add-button{
-  background-color: var(--tron-color);
-  border: solid 1px var(--tron-color);
-  border-radius: 5px;
-  box-shadow: 0 0 9px var(--tron-color);
-  cursor: pointer;
-  color: #fff;
-  margin: 10px
-}
-
 .wrapper{
   display: grid;
   grid-area: auto;
