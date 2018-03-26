@@ -1,8 +1,10 @@
 <template id="listCreator">
-  <div class="todo-list">
-      <div class="todo-list-header">
-        <h2 class="font-effect-neon">List Gen</h2>
-        <input name="description" v-model="newList" v-on:keyup.enter="addList()"> <button class="add-button" v-on:click="addList">Agregar</button>
+  <div class="list-creator">
+      <div class="list-creator-header">
+        <h2>
+          <input name="description" class="font-effect-neon" v-model="newList" v-on:keyup.enter="addList()" placeholder="Nueva Lista"> 
+        </h2>
+        <button class="add-button" v-on:click="addList">Agregar</button>
       </div>
       <div class="todo-list-body" ></div>
   </div>
@@ -35,19 +37,20 @@ export default {
 </script>
 
 <style>
-.todo-list {
-  border: 2px solid Gray;
+.list-creator {
+  border: 2px dashed Gray;
   border-radius: 10px;
   width: auto;
 }
 
-.todo-list-header {
-  border-bottom: 2px solid Gray;
+.list-creator-header {
   padding-bottom: 10px;
 }
 
-.todo-list-header input, .todo-list-header textarea{
+.list-creator-header input{
   width: 80%;
+  border: none;
+  text-align: center
 }
 
 .todo-list-body div p {

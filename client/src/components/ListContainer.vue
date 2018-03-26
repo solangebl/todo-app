@@ -1,8 +1,8 @@
 <template>
     <div class="list-container">
         <div class="wrapper">
-          <list-creator-component @added="listCreated"></list-creator-component>
           <list-component v-for="list in lists" :key="list.id" :listId="list._id"></list-component>
+          <list-creator-component @added="listCreated"></list-creator-component>
         </div>
     </div>
 </template>
