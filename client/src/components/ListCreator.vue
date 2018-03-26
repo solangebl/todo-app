@@ -2,7 +2,7 @@
   <div class="list-creator">
       <div class="list-creator-header">
         <h2>
-          <input name="description" class="font-effect-neon" v-model="newList" v-on:keyup.enter="addList()" placeholder="Nueva Lista"> 
+          <input name="description" class="font-effect-neon" v-model="newList" v-on:keyup.enter="addList()" placeholder="Nueva Lista">
         </h2>
         <button class="add-button" v-on:click="addList">Agregar</button>
       </div>
