@@ -1,8 +1,7 @@
 <template>
     <div class="list-container">
-        <button id="show-modal" class="add-button" @click="showModal = true">Nueva Lista</button>
-        <modal-add-component v-if="showModal" @close="closeModal"></modal-add-component>
         <div class="wrapper">
+          <list-creator-component @added="listCreated"></list-creator-component>
           <list-component v-for="list in lists" :key="list.id" :listId="list._id"></list-component>
         </div>
     </div>
@@ -12,21 +11,19 @@
 
 import TodosService from '@/services/TodosService'
 
-import ModalAdd from './ModalAdd.vue'
 import List from './List.vue'
+import ListCreator from './ListCreator.vue'
 
 export default {
   name: 'list',
   data () {
     return {
-      lists: [],
-      newLlist: {name: 'pepe'},
-      showModal: false
+      lists: []
     }
   },
   components: {
     'list-component': List,
-    'modal-add-component': ModalAdd
+    'list-creator-component': ListCreator
   },
   mounted () {
     this.getLists()
@@ -36,7 +33,7 @@ export default {
       const response = await TodosService.fetchLists()
       this.lists = response.data.lists
     },
-    closeModal () {
+    listCreated () {
       this.showModal = false
       this.getLists()
     }
