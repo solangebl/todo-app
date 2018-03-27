@@ -4,7 +4,7 @@
         <h2>
           <input name="description" class="font-effect-neon" v-model="newList" v-on:keyup.enter="addList()" placeholder="Nueva Lista">
         </h2>
-        <button class="add-button" v-on:click="addList">Agregar</button>
+        <button class="add-button" v-on:click="addList" :disabled="!addEnabled">Agregar</button>
       </div>
       <div class="todo-list-body" ></div>
   </div>
@@ -18,18 +18,24 @@ export default {
   name: 'listCreator',
   data () {
     return {
-      newTodo: ''
+      newList: ''
     }
   },
-  props: ['newList'],
   mounted () {
     this.fetchList(this.listId)
   },
   methods: {
     async addList () {
-      await TodosService.addList({name: this.newList})
-      this.newList = ''
-      this.$emit('added')
+      if (this.addEnabled) {
+        await TodosService.addList({name: this.newList})
+        this.newList = ''
+        this.$emit('added')
+      }
+    }
+  },
+  computed: {
+    addEnabled () {
+      return (this.newList !== '' && this.newList !== undefined)
     }
   }
 }
