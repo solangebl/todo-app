@@ -56,8 +56,7 @@ app.post('/todos/add', (req, res) => {
 })
 
 app.post('/todos/remove', (req, res) => {
-  console.log(req.body)
-  var query = List.findOne({_id: req.body.list})
+  let query = List.findOne({_id: req.body.list})
   query.exec()
   .then( (list) => {
     list.todos.pull({_id: req.body.id})
@@ -99,10 +98,23 @@ app.get('/list/:listId', (req, res) => {
 })
 
 app.post('/lists/add', (req, res) => {
-  var name = req.body.name
-  var newList = new List({title: name})
+  let name = req.body.name
+  let newList = new List({title: name})
   newList.save()
     .then( (list) => {
+      res.send(list)
+    })
+    .catch( (err) => {
+      console.log(err)
+    })
+})
+
+app.post('/lists/remove', (req, res) => {
+  let listId = req.body.list
+  let query = List.find().remove({_id: listId})
+  query.exec()
+    .then( (list) => {
+      console.log(list)
       res.send(list)
     })
     .catch( (err) => {

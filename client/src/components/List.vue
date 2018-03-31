@@ -1,6 +1,7 @@
 <template id="list">
   <div class="todo-list">
       <div class="todo-list-header">
+        <button v-if="isEmpty" class="list-config-button" @click="removeList()"><i class="fas fa-trash-alt"></i></button>
         <h2 class="font-effect-neon">{{ list.title }}</h2>
         <input name="description" v-model="newTodo" v-on:keyup.enter="addTodo()"> <button class="add-button" v-on:click="addTodo">Agregar</button>
       </div>
@@ -23,13 +24,18 @@ export default {
   name: 'list',
   data () {
     return {
-      list: '',
+      list: {todos: ''},
       newTodo: ''
     }
   },
   props: ['listId'],
   mounted () {
     this.fetchList(this.listId)
+  },
+  computed: {
+    isEmpty: function () {
+      return this.list.todos.length === 0
+    }
   },
   methods: {
     async fetchList (id) {
@@ -44,6 +50,12 @@ export default {
     async removeTodo (id) {
       const response = await TodosService.removeTodo({list: this.list._id, id: id})
       this.list = response.data
+    },
+    async removeList () {
+      const response = await TodosService.removeList({list: this.list._id})
+      if (response.data.ok) {
+        this.$emit('removed')
+      }
     }
   }
 }
@@ -73,11 +85,17 @@ export default {
 }
 
 .todo-list-body div p button {
-  background: transparent;
-  border: none;
   float: right;
   margin: 0 10px 0 10px;
   color: var(--tron-orange);
   text-shadow: 0 0 9px var(--tron-orange);
+}
+
+.todo-list-header .list-config-button{
+  float: right;
+  top: 0;
+  margin-right: 7px;
+  background-color: transparent;
+  color: yellow;
 }
 </style>

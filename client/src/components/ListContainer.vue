@@ -1,7 +1,7 @@
 <template>
     <div class="list-container">
         <div class="wrapper">
-          <list-component v-for="list in lists" :key="list.id" :listId="list._id"></list-component>
+          <list-component v-for="list in lists" :key="list.id" :listId="list._id" @removed="listRemoved"></list-component>
           <list-creator-component @added="listCreated"></list-creator-component>
         </div>
     </div>
@@ -34,7 +34,9 @@ export default {
       this.lists = response.data.lists
     },
     listCreated () {
-      this.showModal = false
+      this.getLists()
+    },
+    listRemoved () {
       this.getLists()
     }
   }

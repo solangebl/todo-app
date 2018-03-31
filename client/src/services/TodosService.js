@@ -18,5 +18,8 @@ export default {
   },
   addList (params) {
     return Api().post('lists/add', params)
+  },
+  removeList (params) {
+    return Api().post('lists/remove', params)
   }
 }
