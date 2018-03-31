@@ -21,9 +21,6 @@ export default {
       newList: ''
     }
   },
-  mounted () {
-    this.fetchList(this.listId)
-  },
   methods: {
     async addList () {
       if (this.addEnabled) {
