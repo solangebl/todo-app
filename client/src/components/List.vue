@@ -1,5 +1,12 @@
 <template id="list">
   <div class="todo-list">
+      <modal-component v-if="showItem" @close="showItem = false">
+        <h3 slot="header">
+          <button class="modal-cancel-button" @click="showItem = false"><i class="fas fa-times-circle"></i></button>
+          {{ item.name }}
+        </h3>
+        <p slot="body">{{ item.date }}</p>
+      </modal-component>
       <div class="todo-list-header">
         <button v-if="isEmpty" class="list-config-button" @click="removeList()"><i class="fas fa-trash-alt"></i></button>
         <h2 class="font-effect-neon">{{ list.title }}</h2>
@@ -8,8 +15,9 @@
       <div class="todo-list-body" >
         <div class="" style="margin-bottom:10px;" v-for="todo in list.todos" :key="todo.id">
           <p>
-            >> {{ todo.description }}
+            >> {{ todo.description.substring(0,18) }}
             <button class="remove-button" v-on:click="removeTodo(todo._id)">X</button>
+            <button class="view-button" v-on:click="viewTodo(todo.description, todo.date_created)"><i class="fas fa-eye"></i></button>
           </p>
         </div>
       </div>
@@ -20,12 +28,16 @@
 
 import TodosService from '@/services/TodosService'
 
+import Modal from './Modal.vue'
+
 export default {
   name: 'list',
   data () {
     return {
       list: {todos: ''},
-      newTodo: ''
+      newTodo: '',
+      showItem: false,
+      item: {name: '', date: ''}
     }
   },
   props: ['listId'],
@@ -56,7 +68,15 @@ export default {
       if (response.data.ok) {
         this.$emit('removed')
       }
+    },
+    viewTodo (title, date) {
+      this.item.name = title
+      this.item.date = new Date(date).toDateString()
+      this.showItem = true
     }
+  },
+  components: {
+    'modal-component': Modal
   }
 }
 
@@ -79,14 +99,13 @@ export default {
 }
 
 .todo-list-body div p {
-  padding: 0 10px 0 10px;
+  padding: 0 5px 0 5px;
   text-align: left;
   color: var(--tron-color);
 }
 
 .todo-list-body div p button {
   float: right;
-  margin: 0 10px 0 10px;
   color: var(--tron-orange);
   text-shadow: 0 0 9px var(--tron-orange);
 }

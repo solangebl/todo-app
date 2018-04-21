@@ -6,7 +6,7 @@
         </h2>
         <button class="add-button" v-on:click="addList" :disabled="!addEnabled">Agregar</button>
       </div>
-      <div class="todo-list-body" ></div>
+      <div class="list-creator-body" ></div>
   </div>
 </template>
 
@@ -56,17 +56,16 @@ export default {
   text-align: center
 }
 
-.todo-list-body div p {
+.list-creator-body div p {
   padding: 0 10px 0 10px;
   text-align: left;
   color: var(--tron-color);
 }
 
-.todo-list-body div p button {
+.list-creator-body div p button {
   background: transparent;
   border: none;
   float: right;
-  margin: 0 10px 0 10px;
   color: var(--tron-orange);
   text-shadow: 0 0 9px var(--tron-orange);
 }

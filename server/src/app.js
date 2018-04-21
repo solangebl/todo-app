@@ -122,4 +122,4 @@ app.post('/lists/remove', (req, res) => {
     })
 })
 
-app.listen(process.env.PORT || 8081);
+app.listen(config.web.PORT || 8081);

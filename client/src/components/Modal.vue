@@ -70,9 +70,12 @@ export default {
 }
 
 .modal-cancel-button{
-  background-color: var(--tron-orange);
-  border: solid 1px var(--tron-orange);
+  color: var(--tron-orange);
+  float: left;
+  top: -10px;
+  /*border: solid 1px var(--tron-orange);
   box-shadow: 0 0 9px var(--tron-orange);
+  */
 }
 
 /*
